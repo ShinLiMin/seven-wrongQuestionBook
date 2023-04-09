@@ -14,15 +14,15 @@ import java.util.Date;
 public class OssUtil {
 
     //区域
-    private static final String endpoint = "oss-cn-beijing.aliyuncs.com";
+    private static final String endpoint = "*************************";
     //访问id
-    private static final String accessKeyId = "LTAI5tPQxgXda75VaH8svHwK";
+    private static final String accessKeyId = "***********************";
     //访问秘钥
-    private static final String accessKeySecret = "dInoI1ziWihJMZAPpY2xUW2wCV1CJg";
+    private static final String accessKeySecret = "************************";
     //桶名称
-    private static final String bucketName = "limin-fromgdufe";
+    private static final String bucketName = "********************";
     //访问URL
-    private static final String url = "https://limin-fromgdufe.oss-cn-beijing.aliyuncs.com";
+    private static final String url = "************************************";
 
 
     //文件上传
