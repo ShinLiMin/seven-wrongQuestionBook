@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.wqb.dao.NoteDao">
+
+    <insert id="addNoteComment" parameterType="com.seven.wqb.domain.NoteComment">
+        insert into
+            t_note_comment(
+            noteId,
+            userId,
+            comment,
+            replyUserId,
+            rootId,
+            createTime
+        )values (
+                    #{noteId},
+                    #{userId},
+                    #{comment},
+                    #{replyUserId},
+                    #{rootId},
+                    #{createTime}
+                )
+    </insert>
+
+    <select id="pageCountNoteComments" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+            count(1)
+        from
+            t_note_comment
+        where
+            noteId = #{noteId} and rootId is null
+    </select>
+
+    <select id="pageListNoteComments" parameterType="java.util.Map" resultType="com.seven.wqb.domain.NoteComment">
+        select
+            *
+        from
+            t_note_comment
+        where
+            noteId = #{noteId} and rootId is null
+        order by id desc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="batchGetNoteCommentByRootIds" parameterType="java.util.List" resultType="com.seven.wqb.domain.NoteComment">
+        select
+            *
+        from
+            t_note_comment
+        where
+            rootId in
+            <foreach collection="parentIdList" item="rootId" open="(" close=")" separator=",">
+                #{rootId}
+            </foreach>
+        order by id
+    </select>
+
+    <select id="getNoteCommentByCommentId" parameterType="java.lang.Long" resultType="com.seven.wqb.domain.NoteComment">
+        select
+            *
+        from
+            t_note_comment
+        where
+            id = #{commentId}
+    </select>
+
+    <select id="getNoteCommentLikeByCommentIdAndUid" parameterType="java.lang.Long" resultType="com.seven.wqb.domain.NoteCommentLike">
+        select
+            *
+        from
+            t_note_comment_like
+        where
+            commentId = #{commentId} and userId = #{userId}
+    </select>
+
+    <insert id="addNoteCommentLike" parameterType="com.seven.wqb.domain.NoteCommentLike">
+        insert into
+            t_note_comment_like(
+                userId,
+                noteId,
+                commentId,
+                createTime
+        ) values (
+                  #{userId},
+                  #{noteId},
+                  #{commentId},
+                  #{createTime}
+                         )
+    </insert>
+
+    <delete id="deleteNoteCommentLike" parameterType="java.lang.Long">
+        delete from
+            t_note_comment_like
+        where
+            commentId = #{commentId} and userId = #{userId}
+    </delete>
+
+    <select id="getAllCommentLikeByNoteId" parameterType="java.lang.Long" resultType="com.seven.wqb.domain.NoteCommentLike">
+        select
+            *
+        from
+            t_note_comment_like
+        where
+            noteId = #{noteId}
+    </select>
+
+</mapper>

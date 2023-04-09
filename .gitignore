@@ -1,0 +1,4 @@
+# 项目排除路径
+/seven-wqb-api/target/
+/seven-wqb-dao/target/
+/seven-wqb-service/target/

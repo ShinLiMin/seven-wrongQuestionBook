@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seven.wqb.dao.SensitiveWordDao">
+    <select id="getWordByVal" resultType="com.seven.wqb.domain.SensitiveWord">
+        select
+            *
+        from
+            t_sensitive_word
+        where
+            value = #{value}
+    </select>
+
+    <insert id="insertWord" parameterType="com.seven.wqb.domain.SensitiveWord">
+        insert into
+            t_sensitive_word (
+                value,
+                createTime
+        ) values (
+                  #{value},
+                  #{createTime}
+                         )
+    </insert>
+
+    <delete id="deleteWord" parameterType="java.lang.String">
+        delete from
+            t_sensitive_word
+        where
+            value = #{value}
+    </delete>
+
+    <select id="getAllWord" resultType="com.seven.wqb.domain.SensitiveWord">
+        select
+            *
+        from
+            t_sensitive_word
+    </select>
+
+</mapper>
